@@ -1,25 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import commentsData from "./commentsData.json";
+import useComments from "./hooks/useComments";
+import CommentBox from "./Components/CommentBox";
 
-function App() {
+export default function App() {
+  const { comments, addComment, deleteComment } = useComments(commentsData);
+
+  if (Object.keys(comments).length === 0) {
+    return <h1>No Comments to show</h1>;
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <CommentBox
+      comment={comments[1]}
+      allComments={comments}
+      addComment={addComment}
+      deleteComment={deleteComment}
+    />
   );
 }
-
-export default App;
